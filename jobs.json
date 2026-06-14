@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Data Annotator",
+    "company": "OneForma",
+    "location": "Remote",
+    "description": "Work on AI training and data annotation projects.",
+    "url": "jobs/data-annotator.html"
+  },
+  {
+    "title": "AI Rater",
+    "company": "TELUS Digital",
+    "location": "Remote",
+    "description": "Evaluate AI generated content.",
+    "url": "jobs/ai-rater.html"
+  },
+  {
+    "title": "Search Engine Evaluator",
+    "company": "DataForce",
+    "location": "Indonesia",
+    "description": "Improve search engine quality.",
+    "url": "jobs/search-engine-evaluator.html"
+  }
+]
