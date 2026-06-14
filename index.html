@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BroadVista Jobs</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+    background:#f5f5f5;
+}
+
+header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+h1{
+    color:#222;
+}
+
+#searchBox{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.job{
+    background:white;
+    padding:20px;
+    margin-top:15px;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+.job h2{
+    margin:0;
+}
+
+.job a{
+    text-decoration:none;
+    color:#0066cc;
+}
+
+.meta{
+    color:#666;
+    font-size:14px;
+    margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>BroadVista Jobs</h1>
+    <p>Find Remote Jobs & Opportunities</p>
+</header>
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search jobs, companies, keywords..."
+>
+
+<div id="jobList"></div>
+
+<script>
+
+let jobs=[];
+
+fetch('jobs.json')
+.then(res=>res.json())
+.then(data=>{
+    jobs=data;
+    displayJobs(jobs);
+});
+
+function displayJobs(list){
+
+    const container=document.getElementById('jobList');
+
+    container.innerHTML='';
+
+    if(list.length===0){
+        container.innerHTML="<p>No jobs found.</p>";
+        return;
+    }
+
+    list.forEach(job=>{
+
+        container.innerHTML+=`
+        <div class="job">
+            <h2>
+                <a href="${job.url}">
+                    ${job.title}
+                </a>
+            </h2>
+
+            <div class="meta">
+                ${job.company} • ${job.location}
+            </div>
+
+            <p>${job.description}</p>
+        </div>
+        `;
+    });
+}
+
+document
+.getElementById('searchBox')
+.addEventListener('keyup',function(){
+
+    let keyword=this.value.toLowerCase();
+
+    let filtered=jobs.filter(job=>
+
+        job.title.toLowerCase().includes(keyword) ||
+        job.company.toLowerCase().includes(keyword) ||
+        job.location.toLowerCase().includes(keyword) ||
+        job.description.toLowerCase().includes(keyword)
+
+    );
+
+    displayJobs(filtered);
+
+});
+
+</script>
+
+</body>
+</html>
